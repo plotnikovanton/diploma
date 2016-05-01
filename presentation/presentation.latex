@@ -1,0 +1,18 @@
+\documentclass[t]{beamer}
+
+% Set basic configuration
+\input{../basic-tex-config/preamble.latex}
+
+% Title
+\title{Велеколепная тема диплома}
+\subtitle{Итмо все дела}
+\author{Плотников Антон}
+\date{\today}
+
+\begin{document}
+\frame[plain]{\titlepage}
+
+\begin{frame}
+
+\end{frame}
+\end{document}
