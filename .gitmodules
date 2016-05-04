@@ -1,3 +1,3 @@
-[submodule "bacis-tex-config"]
-    path = basic-tex-config
-    url = git@github.com:plotnikovanton/basic-tex-config.git
+[submodule "basic-tex-config"]
+	path = basic-tex-config
+	url = git@github.com:plotnikovanton/basic-tex-config.git
