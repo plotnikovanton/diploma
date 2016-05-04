@@ -5,9 +5,10 @@
 
 % Title
 \title{Велеколепная тема диплома}
-\subtitle{Итмо все дела}
+\subtitle{Подзаголовок}
 \author{Плотников Антон}
 \date{\today}
+\institute{ИТМО}
 
 \begin{document}
 \frame[plain]{\titlepage}
