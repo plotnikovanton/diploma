@@ -1,0 +1,32 @@
+\section{Симплектический интегратор}
+
+Для того чтобы сохранить сохранить энергию системы можно воспользоваться
+симплектическим интегратором. Опираясь на работу \citet[стр.~3]{Markiewicz1999},
+в общем виде итерационная система имеет вид:
+\begin{table}[h]\label{sym:tab:tableau_basic}
+    \centering
+    \begin{tabular}{c|ccc}
+        $c_1$    & $a_{11}$ & $\ldots$ & $a_{1s}$ \\
+        $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
+        $c_s$    & $a_{11}$ & $\ldots$ & $a_{ss}$ \\ \hline
+                 & $a_{11}$ & $\ldots$ & $a_{ss}$ \\
+    \end{tabular}
+    \caption{Таблица для общего вида}
+\end{table}
+
+\begin{equation}\label{sym:eq:base_form}
+    \begin{gathered}
+        y_{n+1} = y_n + h\sum_{j=1}^s b_j f(t_n+c_jh, \xi_j)
+        \\
+        \xi_j = y_n + h\sum_{i=1}^{s}a_{ji} f(t_n+c_jh, \xi_i)
+    \end{gathered}
+\end{equation}
+
+В данной работе рассматривается симплектический интегратор Рунге-Кутта
+второго порядка, он же метод Гаусса-Лежандра-Рунге-Кутта. Для него таблица
+\ref{sym:tab:tableau_basic} имеет вид:
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|cc}
+        $\frac12 - \frac\sqrt36$ & $\frac14$ & \frac14 - frac\sqrt36 \\
