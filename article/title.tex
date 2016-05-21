@@ -1,0 +1,60 @@
+\begin{titlepage}
+    \newcommand{\fillanswer}[2][\fill]{%
+    \unskip\ \lhrulefill{#1}%
+    \ifteacher\makebox[0pt]{#2}\fi
+    \lhrulefill{#1}\ \ignorespaces}
+    \newcommand{\lhrulefill}[1]{%
+    \leavevmode
+    \leaders\hrule height -.3ex depth \dimexpr
+    .3ex+.4pt\relax % define the leader
+    \hskip\glueexpr#1/2\relax\relax % how much it should
+    \kern0pt
+    }
+
+	\linespread{1.25}
+    \newgeometry{hmairgin=2cm, vmargin=1.5cm}
+    \fontsize{12pt}{10pt}
+	\doublespacing
+    \newpage
+
+    \begin{center}
+		\singlespacing
+        \textbf{\textsc{министерство образования и науки российской
+        федерации}}
+
+        \vspace{1em}
+        \textsc{санкт-петербургский национальный исследовательский университет
+        информационных технологий, механики и оптики}
+    \end{center}
+
+    \begin{flushleft}
+        Факультет \fillanswer{\textbf{Естественнонаучный}}\\
+        Направление \fillanswer{\textbf{Прикладная информатика и информатика}}\\
+        Квалификация \fillanswer{\textbf{бакалавр}}\\
+        Специализация \fillanswer{\textbf{математическое моделирование}}\\
+        Кафедра \fillanswer{\textbf{высшей математики}}Группа\fillanswer{\textbf{А3401}}\\
+    \end{flushleft}
+
+    \vspace{2em}
+
+    \begin{center}
+		 \textbf{\textsc{\LARGE пояснительная записка \\
+		 \large к выпускной квалификационной работе }}
+    \end{center}
+
+	\begin{flushleft}
+		\fillanswer{\textsc{симплектические методы интегрирования}}\\
+		\fillanswer{\textsc{уравнения ландау-лифшица}}\\
+		Автор квалификационной работы \fillanswer{Плотников А. М.} (подпись)\\
+		Руководитель \fillanswer{Лобанов И. С.} (подпись)\\
+	\end{flushleft}
+
+    \vspace{\fill}
+
+	\begin{flushleft}
+		\textbf{К защите допустить}\\
+		Зав. кафедрой \fillanswer{Попов И. Ю.} (подпись)\\
+		\today
+	\end{flushleft}
+\end{titlepage}
+\restoregeometry

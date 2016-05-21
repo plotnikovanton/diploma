@@ -60,6 +60,7 @@
       <file>authoryear-icomp.cbx</file>
       <file>biblatex.cfg</file>
       <file>russian.lbx</file>
+      <file>english.lbx</file>
     </requires>
   </internal>
   <external package="biblatex" priority="5" active="0">
