@@ -1,2 +1,61 @@
 \section{Метод Ньютона}
+Методом Ньютона в обобщенном виде удобно искать численное решение подобной
+системы:
+\begin{equation}\label{eq:newton_base}
+    \begin{cases}
+        f_1(x_1, x_2, \dots, x_n) = 0\\
+        \dots\\
+        f_n(x_1, x_2, \dots, x_n) = 0
+    \end{cases}
+\end{equation}
 
+Выбрав некоторое начальное приближение $\bar x^{[0]}$ следующие приближения находятся
+из решения системы уравнений:
+\begin{equation}\label{eq:newton_generalized_iteration}
+    f_i + \sum_{k=1}^n \frac{\partial f_i}{\partial x_k}
+    (x_k^{[j+1]}-x_k^{[j]})
+\end{equation}
+
+\begin{remark}
+    Для решения системы можно воспользоваться методом би-сопряженных градиентов
+    \ref{REF TO BI CONJ}.
+\end{remark}
+
+Для того чтобы воспользоваться методом ньютона необходимо выделить
+многомерную функцию $f$ и вычислить ее производную. Перепишем
+уравнение~\ref{eq:rk_xi_equation} в виде:
+\begin{equation}
+    S_n + h\sum_{i=1}^s a_{ji}\cdot \left(
+        -\gamma S_n \times H^{eff}_{i} - \gamma\lambda S_n \times
+    \left(S_n \times H^{eff}_{i}\right)\right) - S_j = 0
+    \label{eq:equation_in_newton_form}
+\end{equation}
+
+Вычислим $\nabla_{S_n} f$:
+\begin{multline*}
+    \nabla_{S_k} \left(S_n \times H^{eff}_{k}\right) =
+    \nabla_{S_k} \left(S_n \times\left(A_kS_k+B\right)\right) =\\=
+    \nabla_{S_k} S_n \times \left( A_kS_k + B\right) + S_n\nabla_{S_k}
+    \left(A_kS_k+B\right) =\\=
+    \delta_{kn} \left(\colvec{1\\1\\1}\right) \times (A_kS_k+B) +
+    S_n\times\nabla_{S_k}(A_kS_k+B) =\\=
+    \delta_{kn} \left(\colvec{1\\1\\1}\right) \times H^{eff}_k + S_n A_k
+\end{multline*}
+\begin{multline*}
+    \nabla_{S_k}\left(S_n\times\left(S_n\times H_k^{eff}\right)\right) =
+    \nabla_{S_k}S_n\times\left(S_n\times H^{eff}_k\right) +
+    S_n\times \nabla_{S_k}\left(S_n\times H^{eff}_k\right) =\\=
+    \delta_{kn}\left(\colvec{1\\1\\1}\right)\times\left(S_n \times
+    H^{eff}_k\right) +
+    S_n\times \left(\delta_{kn}\left(\colvec{1\\1\\1}\right)\times H^{eff}_k +
+    S_nA_k\right)
+\end{multline*}
+\begin{multline}
+    \delta_{nk}\left(\colvec{1\\1\\1}\right) + h\sum_{i=1}^s \left( a_{ji}\cdot
+     \gamma\left[
+            \delta_{in} \left(\colvec{1\\1\\1}\right) \times H^{eff}_i + S_n
+        A_i  \right] \right. -\\- \left. \gamma\lambda \left[
+    S_n\times \left(\delta_{in}\left(\colvec{1\\1\\1}\right)\times H^{eff}_i +
+S_nA_i\right) \right] \right) - \left(\colvec{1\\1\\1}\right) =
+\nabla_{S_k}f
+\end{multline}

@@ -1,18 +1,18 @@
 \begin{titlepage}
     \newcommand{\fillanswer}[2][\fill]{%
-    \unskip\ \lhrulefill{#1}%
-    \ifteacher\makebox[0pt]{#2}\fi
-    \lhrulefill{#1}\ \ignorespaces}
-    \newcommand{\lhrulefill}[1]{%
-    \leavevmode
-    \leaders\hrule height -.3ex depth \dimexpr
-    .3ex+.4pt\relax % define the leader
-    \hskip\glueexpr#1/2\relax\relax % how much it should
-    \kern0pt
-    }
+		\unskip\ \lhrulefill{#1}%
+		\makebox[0pt]{#2}%
+		\lhrulefill{#1}\ \ignorespaces}
+	\newcommand{\lhrulefill}[1]{%
+		\leavevmode
+		\leaders\hrule height -0.3ex depth \dimexpr 0.3ex+0.4pt\relax%
+		\hskip\glueexpr#1/2\relax\relax%
+		\kern0pt}
+
+    \newcommand{\ulfrule}{\xleaders\hbox{\underline{ }}\hfill\kern0pt}
 
 	\linespread{1.25}
-    \newgeometry{hmairgin=2cm, vmargin=1.5cm}
+    \newgeometry{left=2cm, right=2cm , vmargin=1.5cm}
     \fontsize{12pt}{10pt}
 	\doublespacing
     \newpage
