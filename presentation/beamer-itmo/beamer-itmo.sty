@@ -20,6 +20,16 @@
 \setbeamercolor{WhiteOnBlue}{bg=ITMOblue,fg=white}
 \setbeamercolor{BlueOnWhite}{fg=ITMOblue,bg=white}
 
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    unicode=true,          % non-Latin characters in Acrobat’s bookmarks
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=white,       % color of internal links (change box color with linkbordercolor)
+    citecolor=ITMOblue,     % color of links to bibliography
+    filecolor=ITMOblue,     % color of file links
+    urlcolor=ITMOblue       % color of external links
+}
+
 %%% Set color of different objects (see Beamer User Guide for more info)
 \usecolortheme[named=ITMOblue]{structure}
 \setbeamercolor{background canvas}{bg=white}
@@ -44,7 +54,7 @@
 \setbeamercolor{palette tertiary}{fg=white}
 
 %%% Blocks
-\setbeamertemplate{blocks}[rounded][shadow=false]
+%\setbeamertemplate{blocks}[rounded][shadow=false]
 \setbeamercolor{block title}{fg=white,bg=ITMOblue}
 \setbeamercolor{block body}{bg=ITMOblue!10}
 \setbeamercolor{block title example}{fg=white,bg=ITMOgreen}
