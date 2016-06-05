@@ -1,0 +1,41 @@
+\section{Метод Ньютона}
+
+Уравнение \ref{eq:newton-needed-form}, это уравнение на нули следующей функции
+\begin{equation}
+    F^{[n],k}_j(\xi) = \Sn_k + h\sum_{i=1}^s a_{j,i} \left[ \xi_i^{[n],k}
+    \times \nabla_{\xi^{[n],k}_i} \mathbf E(\xi) \right] -
+    \xi^{[n],k}_j = 0
+\end{equation}
+в системе \ref{eq:newton-needed-form} $\xi$ зависит от номера шага $k$, индекс
+которого можно опустить, поскольку рассматривается только один шаг.
+
+Так же необходимо вычислить производную функции $F(x)$:
+\begin{multline}
+    \nabla_{\xi^{[m]}} \left[\xi^{[n]} \times \heff^{[n]}(\xi)\right]
+    =\\=
+    \nabla_{\xi^{[j]}} \xi^{[i]} \times \heff^{[n]}(\xi) + \xi^{[i]} \times
+    \nabla_{\xi^{[j]}}\heff^{[i]}(\xi)
+    =\\=
+    \nabla_{\xi^{[j]}} \xi^{[i]} \times \left(A\xi^{[i]} + \mathbf B\right) +
+    \xi^{[i]} \times
+    \nabla_{\xi^{[j]}}\left(A\xi^{[i]} + \mathbf B\right)
+    =\\=
+    \delta_{i,j} \mathrm{Id}_3
+    \times \left(\heff^{[i]}(\xi) \times \heff^{[i]}(\xi)\right) +
+    \xi^{[i]} \times \left(
+    A^{[i,j]} \right)
+\end{multline}
+\begin{equation}
+    \nabla_{\xi_i^{[m]}}F^{[n]}_j(\xi) = ha_{j,i}\nabla_{\xi_i^{[m]}}\left(
+    \xi_i^{[m]} \times \nabla_{\xi_i^{[m]}}\mathbf E [\xi_i] \right) =
+    \delta_{i,j}\delta_{n,m} \mathrm{Id}_3
+\end{equation}
+где $\mathrm{Id}_3$ -- единичная матрица с рангом 3.
+
+\begin{remark}
+    Тут и далее под векторным произведением матрицы на вектор имеется в виду:
+    \begin{equation}
+        (A_1|\dots|A_n) \times B = (A_1 \times B |\dots| A_n \times B)
+    \end{equation}
+    где $A$ и $B$ вектора.
+\end{remark}

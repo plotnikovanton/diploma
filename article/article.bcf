@@ -2240,8 +2240,15 @@
     <bcf:datasource type="file" datatype="bibtex">refs.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Markiewicz1999</bcf:citekey>
-    <bcf:citekey order="2">Markiewicz1999</bcf:citekey>
+    <bcf:citekey order="1">1974</bcf:citekey>
+    <bcf:citekey order="2">1980</bcf:citekey>
+    <bcf:citekey order="3">1956</bcf:citekey>
+    <bcf:citekey order="4">chilsl-metodi</bcf:citekey>
+    <bcf:citekey order="5">1984</bcf:citekey>
+    <bcf:citekey order="6">Hagemeister2015</bcf:citekey>
+    <bcf:citekey order="7">Yu2010</bcf:citekey>
+    <bcf:citekey order="8">Liang2016</bcf:citekey>
+    <bcf:citekey order="9">Markiewicz1999</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nyt" type="entry" sortscheme="nyt">
   <bcf:sorting>

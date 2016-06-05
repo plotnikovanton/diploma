@@ -1,10 +1,13 @@
-%\documentclass[aspectratio=169,t]{beamer}
-\documentclass[t]{beamer}
+%\documentclass[aspectratio=169]{beamer}
+\documentclass{beamer}
 
 
 \input{../basic-tex-config/preamble}
 \usepackage{fontspec}
-\setsansfont{ALSSchlangesans}
+\setsansfont[
+    BoldFont={ALSSchlangesans-Bold},
+    ItalicFont={ALSSchlangesans-Light}
+]{ALSSchlangesans}
 \usefonttheme[onlymath]{serif}
 
 \usepackage{./beamer-itmo/beamer-itmo}
@@ -38,7 +41,7 @@
 \begin{frame}
     \frametitle{Магнитные скирмионы}
     \framesubtitle{Введение}
-    Скирмионы -- это топологически устойчивые вихревые структуры, наблюдаемые в
+    \textbf{Скирмионы} -- это топологически устойчивые вихревые структуры, наблюдаемые в
     магнитных решетках.
 
     \begin{figure}
@@ -100,10 +103,10 @@
         \end{column}
         \begin{column}{0.62\textwidth}
             \begin{center}
-                \includegraphics<1>[width=\textwidth]{energy_loss_euler_1}
-                \includegraphics<2>[width=\textwidth]{energy_loss_euler_01}
-                \includegraphics<3>[width=\textwidth]{energy_loss_euler_001}
-                \includegraphics<4>[width=\textwidth]{energy_loss_euler_0001}
+                \includegraphics<1>[width=0.83\textwidth]{energy_loss_euler_1}
+                \includegraphics<2>[width=0.83\textwidth]{energy_loss_euler_01}
+                \includegraphics<3>[width=0.83\textwidth]{energy_loss_euler_001}
+                \includegraphics<4>[width=0.83\textwidth]{energy_loss_euler_0001}
             \end{center}
         \end{column}
     \end{columns}
@@ -166,6 +169,43 @@
     \end{figure}
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{Разделенный Гамильтониан}
+
+    \begin{columns}
+        \begin{column}{0.38\textwidth}
+            \bigskip
+            \begin{itemize}
+                \item Итераций: 1000%
+                    \only<2->0%
+                    \only<3->{0}%
+                    %\only<4->{0}
+                \item Скорость: 0.%
+                    \only<2->0%
+                    \only<3->{0}%
+                    %\only<4->{0}%
+                    1
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.62\textwidth}
+            \begin{center}
+                \includegraphics<1>[width=0.9\textwidth]{energy_loss_splitted_1}
+                \includegraphics<2>[width=0.9\textwidth]{energy_loss_splitted_01}
+                \includegraphics<3>[width=0.9\textwidth]{energy_loss_splitted_001}
+                %\includegraphics<4>[width=0.9\textwidth]{energy_loss_splitted_0001}
+            \end{center}
+        \end{column}
+    \end{columns}
+
+    %Хотелось бы получить более
+    %эффективный метод, который бы при этом сохранял энергию системы (если не
+    %учитывать диссипативную часть уравнения Ландау-Лифшица), чтобы наблюдать
+    %в динамике поведение скирмионов при изменении характеристик системы или
+    %введении дополнительных источников снаружи.
+\end{frame}
+
+
 \begin{frame}
     \frametitle{Метод ньютона}
 
@@ -183,6 +223,12 @@
     \end{block}
     \pause
     Эту систему можно решить методом би-сопряженных градиентов.
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        Спасибо за внимание!
+    \end{center}
 \end{frame}
 
 \end{document}

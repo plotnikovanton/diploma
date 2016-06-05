@@ -1,0 +1,42 @@
+\section{Уравнение Ландау-Лифшица}
+Рассмотрим систему описываемую уравнением Ландау-Лифшица \ref{eq:lan-lif-full}.
+Второе слагаемое в этом уравнении является диссипативным членом.
+В данной работе исследуются симпликтические методы интегрирования уравнения
+Ландау-Лифшица с целью сохранения полной энергии системы, поэтому далее
+уравнение \ref{eq:lan-lif-full} будет рассматриваться как уравнение для
+бездиссипативной среды и выглядеть следующим образом:
+\begin{equation}\label{eq:lan-lif}
+	\frac{\partial \mathbf S}{\partial t} = - |\gamma|[\mathbf S\times \heff]
+\end{equation}
+
+Возьмем энергию вклад в которую вносят:
+\begin{itemize}
+    \item $\mathbf B$ -- внешнее магнитное поле
+    \item $\mathrm{K0}, \mathbf K$ -- анизотропия, где $\mathrm{K0}$ и $\mathbf
+        K$ линейный вклад в анизотропию и единичный вектор направления вектора
+        анизотропии
+    \item $J^{[n,m]}$ -- сила межатомного взаимодействия между атомами $n$ и
+        $m$
+    \item $D^{[n,m]}$ -- сила Дзялошинского-Мория между атомами $n$ и $m$
+\end{itemize}
+\begin{multline}
+    \mathbf E = -\sum_n \mathbf B \cdot \Sn - \mathrm{K0} \sum_n |\mathbf K \cdot
+    \Sn |^2
+    -\\-
+    \sum_{<n,m>} J^{[n,m]} \Sn - \sum_{<n,m>} \mathbf D^{[n,m]}\cdot
+    (\Sn \times \mathbf S^{[m]})
+\end{multline}
+
+Для удобства дальнейших расчетов перепишем в эффективное магнитное поле
+\ref{eq:heff-def} в виде
+\begin{equation}
+    \heff^{[n]} = \nabla_{S^{[n]}}\mathbf{E} = A\mathbf{S}^{[n]} + \mathbf
+    B^{[n]},\label{eq:heff}
+\end{equation}
+где
+\begin{equation}
+    A\textbf S^{[n]} = -2\mathrm{K0} \mathbf{K} (\mathbf{K}\cdot \mathbf{S}^{[n]}) -
+    \sum_m \mathbf J^{[n, m]} \mathbf S^{[m]} - \sum_m \mathbf S^{[m]} \times
+    \mathbf{D}^{[n,m]}
+\end{equation}
+

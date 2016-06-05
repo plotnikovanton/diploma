@@ -5,17 +5,30 @@
 \input{../basic-tex-config/disser}
 
 \addbibresource{refs.bib}
+\graphicspath{ {../img/errors/} }
 
 \begin{document}
 \input{./title}
 
+\input{./parts/convention.tex}
+
+\chapter{Введение}
+\input{./parts/intro/dynamic}
+\input{./parts/intro/euler}
+\input{./parts/intro/rk}
+\input{./parts/intro/newton}
+\input{./parts/intro/lan-lif}
+\input{./parts/intro/actuality}
+
 \chapter{Постановка проблемы}
-\input{./parts/symplectic-integrator}
-\input{./parts/newton}
+\input{./parts/problem/landau-lifshic-equation}
+\input{./parts/problem/symplectic-integrator}
+\input{./parts/problem/newton}
 
-
-\chapter{Решение проблемы}
-\input{./parts/new-base}
+\chapter{Реализация}
+\input{./parts/solution/tehnologies}
+\input{./parts/solution/model}
+\input{./parts/solution/euler}
 
 
 \printbibliography

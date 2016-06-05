@@ -1,0 +1,111 @@
+\section{Симплeктический интегратор}\label{sec:symplectic-integrator}
+Чтобы воспользоваться симплектическим методом нужно убедиться в том,
+что энергия в системе, описанной уравнением Ландау-Лифшица \ref{eq:lan-lif},
+действительно должна сохраняться. Для этого посмотрим на ее дифференциал и
+убедимся что он равен $0$.
+\begin{equation}
+    \frac{d\mathbf E(S(t))}{dt} =
+    \left<\nabla_S \mathbf E, \dot{\mathbf S} \right> =
+    \left< \nabla_\mathbf S \mathbf E, \gamma \mathbf S \times \nabla_S \mathbf E
+    \right> = 0
+\end{equation}
+
+Так же Гамильтониан должен быть представлен в симплектической форме:
+\begin{equation}\label{eq:ham_sym_form}
+    \begin{cases}
+        \dot q^{[n]} = \dfrac{\partial \mathbf E}{\partial p^{[n]}}
+        \\
+        \dot p^{[n]} = - \dfrac{\partial \mathbf E}{\partial q^{[n]}}
+    \end{cases}
+\end{equation}
+
+Поскольку $\mathbf S^{[n]}$ всегда единичный вектор в $\mathds R^3$
+,в определенной фиксированной точке, то его состояние можно однозначно
+определить парой координат в ортогональном базисе, например в сферических
+координатах или с помощью длин ортогональных векторов на сфере.
+Таким образом можно ввести новый базис для
+каждого атома в решетке и представить $\mathbf S^{[n]}$
+следующим образом:
+\begin{equation}
+    \mathbf S^{[n]} = \mathbf S^{[n]}(q^{[n]}, p^{[n]})
+\end{equation}
+
+Итак необходимо убедиться в эквивалентности:
+\begin{equation}\label{eq:is_ham_split_eq}
+    \mathbf S^{[n]} = |\gamma| \mathbf S^{[n]}\times \nabla_{\mathbf S^{[n]}}
+    \mathbf E
+    \overset{?}{\Leftrightarrow}
+    \begin{cases}
+        \dot q^{[n]} = \frac{\partial \mathbf E}{\partial p^{[n]}}
+        \\
+        \dot p^{[n]} = -\frac{\partial \mathbf E}{\partial p^{[n]}}
+    \end{cases}
+\end{equation}
+
+Для удобства расчетов далее пологается $\gamma=1$. Если есть необходимость
+задать эту консанту отличной от $1$, то можно переопределинь энергию $\mathbf
+E$ так, чтобы внести в нее эту поправку, тогда будут верны все ниже указанные
+расчеты.
+
+Посчитаем производную по времени у Гамильтониана в симплектической
+форме
+\begin{multline}
+    \dot{\mathbf S}^{[n]} = \frac{d}{dt}\mathbf S^{[n]}(q^{[n]}(t),p^{[n]}(t))=
+    \frac{\partial \mathbf S^{[n]}}{\partial q^{[n]}} \cdot \dot q^{[n]} +
+    \frac{\partial \mathbf S^{[n]}}{\partial q^{[n]}}
+    =\\=
+    \frac{\partial \mathbf S^{[n]}}{\partial q^{[n]}}
+    \frac{\partial \mathbf E}{\partial p^{[n]}}
+    -
+    \frac{\partial \mathbf S^{[n]}}{\partial p^{[n]}}
+    \frac{\partial \mathbf E}{\partial q^{[n]}}
+    =
+    \left|\begin{matrix}
+        \Sn & \frac{\partial \Sn}{\partial q^{[n]}} &
+        \frac{\partial \Sn}{\partial p^{[n]}}
+        \\
+        1 & 0 & 0
+        \\
+        \frac{\partial \mathbf E}{\partial S} &
+        \frac{\partial \mathbf E}{\partial q^{[n]}} &
+        \frac{\partial \mathbf E}{\partial p^{[n]}}
+    \end{matrix}\right| = \Sn \times \nabla_{\Sn}\mathbf E
+\end{multline}
+что и требовалось доказать в \ref{eq:is_ham_split_eq}.
+
+Таким образом можно воспользоваться симплектическим методом Рунге-Кутта,
+обзор которого можно посмотреть, например, в статье \citet{Markiewicz1999},
+и пользоваться приводимыми там
+формулами без явной записи гамильтониана в виде \ref{eq:ham_sym_form}.
+
+
+Так как исследуемая система автономна, то в уравнениях \ref{eq:rk-schema},
+\ref{eq:rk-not-linear}
+функция $f(t_n + c_jh, \xi_j)$ принимает вид $f(\xi_j)$
+
+Для исследуемой модели $f(x)$ есть правая часть уравнения Ландау-Лифшица
+\ref{eq:lan-lif}:
+\begin{equation}
+    f(\xi) = -\mathbf S \times \heff(\xi) = \mathbf S \times \nabla_{\mathbf S}
+    \mathbf E
+\end{equation}
+
+Тогда итерационная схема \ref{eq:rk-schema} для исследуемой
+модели будет записана в виде:
+\begin{gather}
+    \mathbf S^{[n]}_{k+1} = \Sn_k + h\sum_{j=1}^s b_j \left[\Sn_k \times
+    \nabla_{\xi^{[n],k}_j} \mathbf E^k \right]
+    \\
+    \xi_j^{[n], k} = \Sn_k + h\sum_{i=1}^s a_{j,i} \left[ -\xi_i^{[n],k}
+    \times \nabla_{\xi^{[n],k}_i} \mathbf E^k \right]\label{eq:rk-not-linear}
+\end{gather}
+где
+\begin{align}
+    k &\text{ -- номер шага в методе Рунге-Кутта} \\
+    n &\text{ -- номер узла в решетке}
+\end{align}
+
+Для вычисления каждого следующего состояния системы необходимо решить
+нелинейное уравнение \ref{eq:rk-not-linear}. Для этого можно воспользоваться,
+каким-нибудь численным методом, например методом Ньютона.
+

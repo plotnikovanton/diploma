@@ -1,0 +1,34 @@
+\section{Уравнения Гамильтона в теоретической динамике}
+Динамическую систему с $s$ степенями свободы
+можно описать с помощью $2s$ обыкновенных дифференциальных
+уравнений. Удобным способом записи является запись с помощью уравнений
+Гамильтона
+\begin{equation}\label{eq:ham-system}
+    \begin{cases}
+        \dot q_k = \dfrac{\partial H(p, q)}{\partial p_k}\\
+        \dot p_k = -\dfrac{\partial H(p, q)}{\partial q_k}
+    \end{cases}, \qquad k = 1\dots s
+\end{equation}
+
+Смыслом гамилтониана системы обычно является энергия. Рассмотрим такую систему,
+где гамильтониан не зависит явно от времени, тогда
+\begin{equation}
+    \frac{\partial H}{\partial d} = 0,
+\end{equation}
+легко показать что в такой системе
+гамильтониан, записанный в виде \ref{eq:ham-system}, не меняется со временем
+\begin{multline}
+    \frac{d H}{dt} = \sum_j\left(\frac{\partial H}{\partial q_j}
+    \dot q_j + \frac{\partial H}{\partial p_j}\dot p_j\right) + \frac{\partial
+    H}{\partial t}
+    =\\=
+    \sum_j\left(\frac{\partial H}{\partial q_j} \frac{\partial H}{\partial p_i}
+    - \frac{\partial H}{\partial p_j}\frac{\partial H}{\partial q_i} \right)
+    + \frac{\partial H}{\partial t} = \frac{\partial H}{\partial t} = 0
+\end{multline}
+
+Подробнее изучить материал можно, например, в работе \cite[стр.~123]{1974} и
+\cite[стр. 260]{1980}
+
+Такие системы обычно невозможно решить в символьном виде, поэтому нужно
+прибегать к численным методам.

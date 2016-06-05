@@ -1,0 +1,49 @@
+\section{Метод Рунге-Кутта}
+Также широко популярен класс численных методов решения задачи коши именуемыми
+методами Рунге-Кутта.
+
+Пусть есть задача коши \ref{eq:koshi}, тогда
+в общем виде итерационная схема неявного метода Рунге-Кутта имеет вид:
+\begin{figure}[h]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \begin{tabular}{c|ccc}
+        $c_1$    & $a_{11}$ & $\ldots$ & $a_{1s}$ \\
+        $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
+        $c_s$    & $a_{11}$ & $\ldots$ & $a_{ss}$ \\ \hline
+                 & $b_{1}$  & $\ldots$ & $b_{s}$ \\
+    \end{tabular}
+    \caption{Таблица для общего вида}
+\label{tab:tableau_basic}
+\end{figure}
+
+\begin{equation}\label{eq:rk-schema}
+    y_{n+1} = y_n + h\sum_{j=1}^s b_j f(x_n+c_jh, \xi_j)
+\end{equation}
+где $\xi$ вычисляется из нелинейного уравнения
+\begin{equation}\label{eq:rk-not-linear}
+    \xi_j = y_n + h\sum_{i=1}^{s}a_{ji} f(x_n+c_jh, \xi_i)
+\end{equation}
+
+Коэффициенты $c_i$, $a_ij$ и $b_i$ вычисляются из разложения функций $y_n,
+f$ в ряд Тейлора и приравнивания коэффициентов при степенях $h^{(p-1)}$ к нулю,
+где $p$ -- порядок степени аппроксимации схемы. Подробнее
+см.~\cite[стр. 75]{chilsl-metodi}.
+
+В данной работе рассматривается неявный метод Рунге-Кутта
+второго порядка, имеющий второй порядок точности,
+он же метод Гаусса-Лежандра-Рунге-Кутта. Для него
+таблица \ref{tab:tableau_basic} выглядит как таблица \ref{tab:gauss-lagr}.
+
+\begin{figure}[h]
+    \renewcommand{\arraystretch}{1.8}
+    \centering
+    \begin{tabular}{c|cc}
+        $\frac12 - \frac{\sqrt3}6$ & $\frac14$                  & $\frac14 - \frac{\sqrt3}6$ \\
+        $\frac12 + \frac{\sqrt3}6$ & $\frac14 + \frac{\sqrt3}6$ & $\frac14$ \\ \hline
+                                   & $\frac12$                  & $\frac12$
+    \end{tabular}
+    \caption{Таблица для метода Гаусса-Лагранжа-Рунге-Кутта}
+\label{tab:gauss-lagr}
+\end{figure}
+
