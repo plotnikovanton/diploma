@@ -1,33 +1,32 @@
 \section{Симплeктический интегратор}\label{sec:symplectic-integrator}
 Чтобы воспользоваться симплектическим методом нужно убедиться в том,
-что энергия в системе, описанной уравнением Ландау-Лифшица \ref{eq:lan-lif},
+что энергия в системе, описанной уравнением Ландау-Лифшица (\ref{eq:lan-lif}),
 действительно должна сохраняться. Для этого посмотрим на ее дифференциал и
-убедимся что он равен $0$.
+убедимся что он равен $0$:
 \begin{equation}
     \frac{d\mathbf E(S(t))}{dt} =
-    \left<\nabla_S \mathbf E, \dot{\mathbf S} \right> =
-    \left< \nabla_\mathbf S \mathbf E, \gamma \mathbf S \times \nabla_S \mathbf E
-    \right> = 0
+    \Braket{\nabla_S \mathbf E | \dot{\mathbf S} } =
+    \Braket{\nabla_\mathbf S \mathbf E| \gamma \mathbf S \times \nabla_S
+    \mathbf E
+    } = 0,
 \end{equation}
-
-Так же Гамильтониан должен быть представлен в симплектической форме:
+также гамильтониан должен быть представлен в симплектической форме:
 \begin{equation}\label{eq:ham_sym_form}
     \begin{cases}
         \dot q^{[n]} = \dfrac{\partial \mathbf E}{\partial p^{[n]}}
         \\
         \dot p^{[n]} = - \dfrac{\partial \mathbf E}{\partial q^{[n]}}
-    \end{cases}
+    \end{cases}\quad.
 \end{equation}
 
-Поскольку $\mathbf S^{[n]}$ всегда единичный вектор в $\mathds R^3$
-,в определенной фиксированной точке, то его состояние можно однозначно
-определить парой координат в ортогональном базисе, например в сферических
-координатах или с помощью длин ортогональных векторов на сфере.
-Таким образом можно ввести новый базис для
-каждого атома в решетке и представить $\mathbf S^{[n]}$
+Поскольку $\mathbf S^{[n]}$ всегда единичный вектор в $\mathds R^3$, его
+состояние можно однозначно определить парой координат в ортогональном базисе,
+например в сферических координатах или с помощью длин ортогональных векторов на
+сфере. Таким образом можно ввести новый базис для каждого атома в решетке и
+представить $\mathbf S^{[n]}$
 следующим образом:
 \begin{equation}
-    \mathbf S^{[n]} = \mathbf S^{[n]}(q^{[n]}, p^{[n]})
+    \mathbf S^{[n]} = \mathbf S^{[n]}(q^{[n]}, p^{[n]}).
 \end{equation}
 
 Итак необходимо убедиться в эквивалентности:
@@ -39,7 +38,7 @@
         \dot q^{[n]} = \frac{\partial \mathbf E}{\partial p^{[n]}}
         \\
         \dot p^{[n]} = -\frac{\partial \mathbf E}{\partial p^{[n]}}
-    \end{cases}
+    \end{cases}.
 \end{equation}
 
 Для удобства расчетов далее пологается $\gamma=1$. Если есть необходимость
@@ -47,9 +46,9 @@
 E$ так, чтобы внести в нее эту поправку, тогда будут верны все ниже указанные
 расчеты.
 
-Посчитаем производную по времени у Гамильтониана в симплектической
+Посчитаем производную по времени у гамильтониана в симплектической
 форме
-\begin{multline}
+\begin{multline}\label{eq:ham-deriv-matrix}
     \dot{\mathbf S}^{[n]} = \frac{d}{dt}\mathbf S^{[n]}(q^{[n]}(t),p^{[n]}(t))=
     \frac{\partial \mathbf S^{[n]}}{\partial q^{[n]}} \cdot \dot q^{[n]} +
     \frac{\partial \mathbf S^{[n]}}{\partial q^{[n]}}
@@ -69,43 +68,64 @@ E$ так, чтобы внести в нее эту поправку, тогда
         \frac{\partial \mathbf E}{\partial S} &
         \frac{\partial \mathbf E}{\partial q^{[n]}} &
         \frac{\partial \mathbf E}{\partial p^{[n]}}
-    \end{matrix}\right| = \Sn \times \nabla_{\Sn}\mathbf E
+    \end{matrix}\right|.
 \end{multline}
-что и требовалось доказать в \ref{eq:is_ham_split_eq}.
+Здесь, полученная в итоге, матрица представляет векторное произведение в базисе
+записанном первой строкой, вторая строка есть $\mathbf S^{[n]}$ и 3 представляет
+градиент $\mathbf E$ по $\mathbf S^{[n]}$, таким образом
+\begin{equation}
+    \dot{\mathbf S}^{[n]} = \Sn \times \nabla_{\Sn}\mathbf E,
+\end{equation}
+что и требовалось доказать в (\ref{eq:is_ham_split_eq}).
 
 Таким образом можно воспользоваться симплектическим методом Рунге-Кутта,
-обзор которого можно посмотреть, например, в статье \citet{Markiewicz1999},
+обзор которого можно посмотреть, например, в статье
+\cite{survey-on-symplectic-integrators},
 и пользоваться приводимыми там
-формулами без явной записи гамильтониана в виде \ref{eq:ham_sym_form}.
+формулами без явной записи гамильтониана в виде (\ref{eq:ham_sym_form}).
 
 
-Так как исследуемая система автономна, то в уравнениях \ref{eq:rk-schema},
-\ref{eq:rk-not-linear}
-функция $f(t_n + c_jh, \xi_j)$ принимает вид $f(\xi_j)$
-
+Так как исследуемая система автономна, то в уравнениях (\ref{eq:rk-schema}),
+(\ref{eq:rk-not-linear})
+функция $f(t_n + c_jh, \xi_j)$ принимает вид $f(\xi_j)$.
 Для исследуемой модели $f(x)$ есть правая часть уравнения Ландау-Лифшица
-\ref{eq:lan-lif}:
+(\ref{eq:lan-lif}):
 \begin{equation}
     f(\xi) = -\mathbf S \times \heff(\xi) = \mathbf S \times \nabla_{\mathbf S}
-    \mathbf E
+    \mathbf E(\xi).
 \end{equation}
 
-Тогда итерационная схема \ref{eq:rk-schema} для исследуемой
+Тогда итерационная схема (\ref{eq:rk-schema}) для исследуемой
 модели будет записана в виде:
 \begin{gather}
-    \mathbf S^{[n]}_{k+1} = \Sn_k + h\sum_{j=1}^s b_j \left[\Sn_k \times
-    \nabla_{\xi^{[n],k}_j} \mathbf E^k \right]
+    \mathbf S^{[n]}_{k+1} = \Sn_k + h\sum_{j=1}^s b_j \left[\xi^{[n]}_k \times
+    \nabla_{\xi^{[n],k}_j} \mathbf E^k \right],
     \\
     \xi_j^{[n], k} = \Sn_k + h\sum_{i=1}^s a_{j,i} \left[ -\xi_i^{[n],k}
-    \times \nabla_{\xi^{[n],k}_i} \mathbf E^k \right]\label{eq:rk-not-linear}
+    \times \nabla_{\xi^{[n],k}_i} \mathbf E^k \right]\label{eq:rk-not-linear},
 \end{gather}
 где
-\begin{align}
-    k &\text{ -- номер шага в методе Рунге-Кутта} \\
-    n &\text{ -- номер узла в решетке}
-\end{align}
+\begin{itemize}
+    \item $k$ -- номер шага в методе Рунге-Кутта,
+    \item $n$ -- номер узла в решетке.
+\end{itemize}
 
 Для вычисления каждого следующего состояния системы необходимо решить
-нелинейное уравнение \ref{eq:rk-not-linear}. Для этого можно воспользоваться,
+нелинейное уравнение (\ref{eq:rk-not-linear}). Для этого можно воспользоваться,
 каким-нибудь численным методом, например методом Ньютона.
 
+Отметим, что выше мы не переходим к локальным двумерным координатам, а остаемся
+в трехмерном пространстве, то необходимо учесть, чтобы длины векторов,
+характеризующие направление спинов атомов должны сохраняться. Запишем этот
+инвариант в эквивалентном виде следующем виде:
+\begin{equation}
+    L^{[n]} = \Braket{\Sn | \Sn}.
+\end{equation}
+Заметим, что $L$ является квадратичной формой, тогда согласно теореме
+\ref{th:quadratic-integrals} (подробнее см. \cite{rk-schemes-for-ham-sys})
+симпелектический метод Рунге-Кутта будет сохранять
+этот инвариант.
+\begin{theorem}\label{th:quadratic-integrals}
+    Симплектический метод Рунге-Кутта сохраняет все инварианты в квадратичной
+    форме Гамильтоновой системы.
+\end{theorem}

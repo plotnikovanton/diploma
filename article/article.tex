@@ -1,35 +1,58 @@
 \documentclass[a4paper, 14pt]{extreport}
 
 \usepackage{tikz}
+\usepackage{pdfpages}
 \input{../basic-tex-config/preamble}
-\input{../basic-tex-config/disser}
+\input{../basic-tex-config/bachelor}
+
 
 \addbibresource{refs.bib}
-\graphicspath{ {../img/errors/} }
+\graphicspath{ {../img/errors/}{../img/} }
 
 \begin{document}
-\input{./title}
+%\input{./title}
 
+\includepdf[pages=-]{title.pdf}
+\includepdf[pages=-]{anotation.pdf}
+\includepdf[pages=-]{task.pdf}
+\setcounter{page}{4}
+
+\tableofcontents
+\newpage
+
+\likechapter{Условные обозначения}
 \input{./parts/convention.tex}
 
-\chapter{Введение}
-\input{./parts/intro/dynamic}
-\input{./parts/intro/euler}
-\input{./parts/intro/rk}
-\input{./parts/intro/newton}
-\input{./parts/intro/lan-lif}
-\input{./parts/intro/actuality}
+\likechapter{ВВЕДЕНИЕ}\label{ch:intro}
+\input{./parts/intro}
 
-\chapter{Постановка проблемы}
+\chapter[КРАТКИЙ ОБЗОР МАТЕРИАЛОВ]%
+{КРАТКИЙ ОБЗОР МАТЕРИАЛОВ ПО ИССЛЕДУЕМОЙ ТЕМЕ}\label{ch:survey}
+\input{./parts/survey/dynamic}
+\input{./parts/survey/euler}
+\input{./parts/survey/rk}
+\input{./parts/survey/newton}
+\input{./parts/survey/lan-lif}
+
+\chapter{ПОСТАНОВКА ПРОБЛЕМЫ}\label{ch:problem}
 \input{./parts/problem/landau-lifshic-equation}
 \input{./parts/problem/symplectic-integrator}
 \input{./parts/problem/newton}
 
-\chapter{Реализация}
+\chapter{ПРОВЕДЕНИЕ ЭКСПЕРИМЕНТА}\label{ch:realisation}
 \input{./parts/solution/tehnologies}
 \input{./parts/solution/model}
 \input{./parts/solution/euler}
+\input{./parts/solution/symplectic-rk}
+\input{./parts/solution/skyrmion}
+
+\newpage
+\likechapter{Заключение}
+\input{./parts/conclusion}
+
+\newpage
+\likechapter{Список литературы}
+\printbibliography[heading=none]
 
 
-\printbibliography
 \end{document}
