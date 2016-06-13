@@ -3374,14 +3374,13 @@
     <bcf:citekey order="5">classic-mech</bcf:citekey>
     <bcf:citekey order="6">euler</bcf:citekey>
     <bcf:citekey order="7">chilsl-metodi</bcf:citekey>
-    <bcf:citekey order="8">stabil-of-rk</bcf:citekey>
-    <bcf:citekey order="9">lan-lif-again</bcf:citekey>
-    <bcf:citekey order="10">Hagemeister2015</bcf:citekey>
-    <bcf:citekey order="11">survey-on-symplectic-integrators</bcf:citekey>
-    <bcf:citekey order="12">rk-schemes-for-ham-sys</bcf:citekey>
-    <bcf:citekey order="13">scipy</bcf:citekey>
-    <bcf:citekey order="14">numpy</bcf:citekey>
-    <bcf:citekey order="15">matplotlib</bcf:citekey>
+    <bcf:citekey order="8">lan-lif-again</bcf:citekey>
+    <bcf:citekey order="9">Hagemeister2015</bcf:citekey>
+    <bcf:citekey order="10">survey-on-symplectic-integrators</bcf:citekey>
+    <bcf:citekey order="11">rk-schemes-for-ham-sys</bcf:citekey>
+    <bcf:citekey order="12">scipy</bcf:citekey>
+    <bcf:citekey order="13">numpy</bcf:citekey>
+    <bcf:citekey order="14">matplotlib</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nty" type="entry" sortscheme="nty">
   <bcf:sorting>

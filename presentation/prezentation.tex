@@ -1,17 +1,19 @@
 %\documentclass[aspectratio=169]{beamer}
-\documentclass{beamer}
-
-
-\input{../basic-tex-config/preamble}
-\usepackage{fontspec}
-\setsansfont[
-    BoldFont={ALSSchlangesans-Bold},
-    ItalicFont={ALSSchlangesans-Light}
-]{ALSSchlangesans}
-\usefonttheme[onlymath]{serif}
+\documentclass[t]{beamer}
 
 \usepackage{./beamer-itmo/beamer-itmo}
-\usepackage{tikz}
+
+\usepackage{graphicx} % support of images
+\usepackage{wrapfig} % support of wrapping figures by text
+%\usepackage{float} % let you insert images where you really want
+\usepackage{mathtext}
+\usepackage{braket}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}
+\usepackage{mathrsfs}
+\usepackage{icomma}
+\usepackage{dsfont} % Badass mathematical font
+
+\usepackage{media9}
 
 \uselanguage{russian}
 \languagepath{russian}
@@ -22,213 +24,295 @@
 \deftranslation[to=russian]{Fact}{Факт}
 \deftranslation[to=russian]{Example}{Пример}
 \deftranslation[to=russian]{Examples}{Примеры}
+\deftranslation[to=russian]{Figure}{Рисунок}
+\deftranslation[to=russian]{Table}{Таблица}
 
-\graphicspath{{../img/energy_loss/} {../img/}}
+\newcommand*{\heff}{\ensuremath{\mathcal{H}}}
+\newcommand*{\Sn}{\ensuremath{\mathbf{S}^{[n]}}}
+
+\graphicspath{{../img/errors/}{../img/}}
 
 % Title
 
-\title[Симп. мет. инт. ур-я Ландау-Лифшица]{Симплектические методы интегрирования\linebreak
-уравнения Ландау-Лифшица}
+\title[Симплектические методы интегрирования ур-я Ландау-Лифшица]{%
+    Симплектические методы интегрирования\linebreak
+        уравнения Ландау-Лифшица
+}
 
-\author[Плотников Антон]{Плотников Антон \linebreak\small
-Научный руководитель Лобанов Игорь Сергеевич}
+\author[Плотников Антон]{Плотников Антон Михайлович\linebreak\footnotesize
+    Научный руководитель Лобанов И. С.}
 \institute{Кафедра высшей математики}
-\date{Санкт-Петербург \today}
+\date{Санкт-Петербург, 2016}
 
 \begin{document}
-\frame[plain]{\titlepage}
+\ITMOtitlepage
 
 \begin{frame}
-    \frametitle{Магнитные скирмионы}
-    \framesubtitle{Введение}
-    \textbf{Скирмионы} -- это топологически устойчивые вихревые структуры, наблюдаемые в
-    магнитных решетках.
-
+    \frametitle{Магнитный скирмион}
+    Скирмион -- это квазичастица, представляющая структуру, выстраивающеюся из
+    спинов нескольких атомов кристаллической решетки.
+    \pause
     \begin{figure}
         \centering
-        \includegraphics[scale=0.3]{../img/simple_skyrmion_1}
+        \includegraphics[width=0.5\linewidth]{skyrmion4}
     \end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Магнитные скирмионы}
-    \framesubtitle{Актуальность}
-    Тема скирмионов сейчас весьма актуальна, за последний год скирмионы
-    упоминаются более чем в 1000 статьях, по результатам поискового запроса в
-    \url{schoolar.google.com}.
-
-    В научных журналах рассматриваются возможности использования скирмионов в
-    качестве эффективных ПЗУ за счет возможность потенциально высокой плотности
-    размещения их на кристаллической решетке.
 \end{frame}
 
 \begin{frame}
     \frametitle{Уравнение Ландау-Лифшица}
-    \framesubtitle{Постановка задачи}
+    Состояние магнитной системы описывается уравнением Ландау-Лифшица-Гильберта
 
-    Состояние магнитной системы описывается уравнением Ландау-Лифшица
-
-    \begin{block}{Уравнение Ландау-Лифшица}
-        \begin{align*}
-            &\frac{dS_n}{dt} = -\gamma S_n \times H^{eff}_n - \gamma\lambda S_n \times
-            \left(S_n\times H^{eff}_n \right)
-            \\
-            &H^{eff}_n = \nabla_{S_n}E = AS_n + B_n
-        \end{align*}
+    \begin{block}{Уравнение Ландау-Лифшица-Гильберта}
+        \begin{equation*}
+            \frac{dS_n}{dt} = -\gamma S_n \times \nabla_{S_n} \mathbf E -
+            \gamma\lambda S_n \times
+            \left(S_n\times \nabla_{S_n} \mathbf E \right)
+        \end{equation*}
     \end{block}
-\end{frame}
 
-
-\begin{frame}
-    \frametitle{Постановка задачи}
-
-    Большинство описанных моделей используют малоэффективные методы
-    интегрирования, такие как метод Эйлера.
-
-
-    \begin{columns}
-        \begin{column}{0.38\textwidth}
-            \bigskip
-            \begin{itemize}
-                \item Итераций: 1000%
-                    \only<2->0%
-                    \only<3->{0}%
-                    \only<4->{0}
-                \item Скорость: 0.%
-                    \only<2->0%
-                    \only<3->{0}%
-                    \only<4->{0}%
-                    1
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.62\textwidth}
-            \begin{center}
-                \includegraphics<1>[width=0.83\textwidth]{energy_loss_euler_1}
-                \includegraphics<2>[width=0.83\textwidth]{energy_loss_euler_01}
-                \includegraphics<3>[width=0.83\textwidth]{energy_loss_euler_001}
-                \includegraphics<4>[width=0.83\textwidth]{energy_loss_euler_0001}
-            \end{center}
-        \end{column}
-    \end{columns}
-
-    %Хотелось бы получить более
-    %эффективный метод, который бы при этом сохранял энергию системы (если не
-    %учитывать диссипативную часть уравнения Ландау-Лифшица), чтобы наблюдать
-    %в динамике поведение скирмионов при изменении характеристик системы или
-    %введении дополнительных источников снаружи.
-\end{frame}
-
-\begin{frame}
-    \frametitle{Симплектический метод}
-    В общем виде симплектический метод выглядит следующим образом:
-
-    \begin{block}{Общий вид симплектического интегратора}
-        \begin{gather*}
-            S_{n+1} = S_n + h\sum_{j=1}^s b_j f(t_n+c_jh, \xi_j)
-            \\
-            \xi_j = y_n + h\sum_{i=1}^{s}a_{ji} f(t_n+c_jh, \xi_i)
-        \end{gather*}
-    \end{block}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Запись гамильтониана}
-    \framesubtitle{в симплeктическом виде}
-    \begin{block}{Желаемая форма}
-        \[
-            \begin{cases}
-                \dot q_i = \frac{\partial H}{\partial p_i}\\
-                \dot p_i = -\frac{\partial H}{\partial q_i}
-            \end{cases}
-        \]
-    \end{block}
+    \begin{itemize}
+        \only<1>{\item $\mathbf E$ -- энергия системы}
+        \item $S_n$ -- вектор направления спина атома с индексом $n$
+    \end{itemize}
 
     \pause
 
-    \begin{figure}[h]
-        \centering
-        \begin{tikzpicture}
-            \draw (-1,0) arc (180:360:1cm and 0.5cm);
-            \draw[dashed] (-1,0) arc (180:0:1cm and 0.5cm);
-            \draw (0,1) arc (90:270:0.5cm and 1cm);
-            \draw[dashed] (0,1) arc (90:-90:0.5cm and 1cm);
-            \draw (0,0) circle (1cm);
-            \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
-        \draw[->, thick] (0,0) -- (0,1) node[left, pos=0.2]{$\bar s_i$};
-
-        \filldraw[black!40, fill=black!40, fill opacity=0.2]
-            (-1.4, 1, 1.4) --
-            (-1.4, 1, -1.3) --
-            (1.4, 1, -1.4) --
-            (1.4, 1, 1.4) --
-            cycle;
-
-            \draw[->, thick] (0, 1, 0) -- (1, 1, 0) node[above]{$\bar e_{p_i}$};
-            \draw[->, thick] (0, 1, 0) -- (0, 1, -1) node[above]{$\bar e_{q_i}$};
-        \end{tikzpicture}
-    \end{figure}
+    \begin{block}{Энергия системы}
+        \begin{multline*}
+            \mathbf E = -\sum_n \Braket{\mathbf B | \Sn} - \mathrm{K_0} \sum_n
+            \left| \Braket{\mathbf K | \Sn } \right|^2
+            -\\-
+            \sum_{n\thicksim m} J^{[n,m]} \Sn - \sum_{n\thicksim m}
+            \Braket{\mathbf D^{[n,m]} | \left(\Sn \times \mathbf S^{[m]}\right)}.
+        \end{multline*}
+    \end{block}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{Разделенный Гамильтониан}
+    \frametitle{Метод Эйлера}
+    Пусть дана задача Коши
+    \begin{block}{Задача Коши}
+        \begin{equation*}
+            \begin{cases}
+                \frac{dy}{dx} = f(x,y) \\
+                y_{|x=x_0} = y_0
+            \end{cases}
+        \end{equation*}
+    \end{block}
+    тогда следующее значение вычисляется через предыдущее по следующей формуле:
+    \begin{block}{Схема Эйлера}
+        \begin{equation*}
+            y_{i+1} = y_i + hf(x_i, y_i).
+        \end{equation*}
+    \end{block}
+\end{frame}
 
-    \begin{columns}
-        \begin{column}{0.38\textwidth}
-            \bigskip
-            \begin{itemize}
-                \item Итераций: 1000%
-                    \only<2->0%
-                    \only<3->{0}%
-                    %\only<4->{0}
-                \item Скорость: 0.%
-                    \only<2->0%
-                    \only<3->{0}%
-                    %\only<4->{0}%
-                    1
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.62\textwidth}
-            \begin{center}
-                \includegraphics<1>[width=0.9\textwidth]{energy_loss_splitted_1}
-                \includegraphics<2>[width=0.9\textwidth]{energy_loss_splitted_01}
-                \includegraphics<3>[width=0.9\textwidth]{energy_loss_splitted_001}
-                %\includegraphics<4>[width=0.9\textwidth]{energy_loss_splitted_0001}
-            \end{center}
-        \end{column}
-    \end{columns}
+\begin{frame}
+    \frametitle{Неявные методы РК}
+    \begin{block}{Неявный метод Рунге-Кутта}
+        \only<1>{%
+            \begin{gather*}
+                S_{n+1} = S_n + h\sum_{j=1}^s b_j f\left(t_n+c_jh, \xi_j\right)
+                \\
+                \xi_j = y_n + h\sum_{i=1}^{s}a_{ji}f\left(t_n+c_jh,\xi_i\right)
+            \end{gather*}
+        }%
+        \only<2>{%
+            \begin{gather*}
+                \mathbf S^{[n]}_{k+1} = \mathbf S^{[n]}_k + h\sum_{j=1}^s b_j
+                \left[\xi^{[n]}_k \times
+                \nabla_{\xi^{[n],k}_j} \mathbf E^k \right]
+                \\
+                \xi_j^{[n], k} = \mathbf S^{[n]}_k + h\sum_{i=1}^s a_{j,i}
+                \left[ -\xi_i^{[n],k} \times \nabla_{\xi^{[n],k}_i}
+                \mathbf E^k \right]\label{eq:rk-not-linear}
+            \end{gather*}
+        }%
+    \end{block}
 
-    %Хотелось бы получить более
-    %эффективный метод, который бы при этом сохранял энергию системы (если не
-    %учитывать диссипативную часть уравнения Ландау-Лифшица), чтобы наблюдать
-    %в динамике поведение скирмионов при изменении характеристик системы или
-    %введении дополнительных источников снаружи.
+    Коэффициенты $a_{ij}$, $b_i$ и $c_i$ задаются следующей таблицей
+
+    \begin{block}{}
+        \begin{figure}[h]
+            \renewcommand{\arraystretch}{1.2}
+            \centering
+            \begin{tabular}{c|ccc}
+                $c_1$    & $a_{11}$ & $\ldots$ & $a_{1s}$ \\
+                $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
+                $c_s$    & $a_{11}$ & $\ldots$ & $a_{ss}$ \\ \hline
+                         & $b_{1}$  & $\ldots$ & $b_{s}$ \\
+            \end{tabular}
+        \end{figure}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Симпелектический метод РК}
+
+    Пусть $M=\left( m_{ij} \right)^s_{i,j=1}$ -- матрица вещественных чисел размера
+    $s\times s$, где
+    \begin{block}{}
+        \begin{equation*}
+            m_{ij} = b_i a_{ij} + b_j a_{ji} - b_i b_j,\qquad i,j=1,\dots,s
+        \end{equation*}
+    \end{block}
+    \only<1>{%
+        тогда справедлива следующая теорема
+    }
+    \only<2>{%
+        тогда справедливы следующие теоремы
+    }
+    \begin{theorem}
+        Если $M = 0$, тогда метод Рунге-Кутта является симплектическим.
+    \end{theorem}
+    \only<2>{%
+        \begin{theorem}\label{th:quadratic-integrals}
+            Симплектический метод Рунге-Кутта сохраняет все инварианты в квадратичной
+            форме Гамильтоновой системы.
+        \end{theorem}
+    }
+\end{frame}
+
+
+\begin{frame}[c]
+    \frametitle{Метод Гаусса-Лежандра-Рунге-Кутта}
+    \begin{table}[h]
+        \renewcommand{\arraystretch}{1.8}
+        \centering
+        \begin{tabular}{c|cc}
+            $\frac12 - \frac{\sqrt3}6$ & $\frac14$                  & $\frac14 - \frac{\sqrt3}6$ \\
+            $\frac12 + \frac{\sqrt3}6$ & $\frac14 + \frac{\sqrt3}6$ & $\frac14$ \\ \hline
+                                       & $\frac12$                  & $\frac12$
+        \end{tabular}
+        \caption{коэффициенты для метода Гаусса-Лагранжа-Рунге-Кутта}
+    \end{table}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Гамильтонова система}
+    \begin{block}{Система Гамильтона}
+        \begin{equation*}
+            \begin{cases}
+                \dot q_k = \frac{\partial H(p, q)}{\partial p_k}\\
+                \dot p_k = -\frac{\partial H(p, q)}{\partial q_k}
+            \end{cases}, \qquad k = 1\dots s.
+        \end{equation*}
+    \end{block}
+    \pause
+    При наивном численном интегрировании должна появится ошибка с длиной
+    вектора $\bar{s}$
+    \only<2>{%
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}
+                \draw (-1,0) arc (180:360:1cm and 0.5cm);
+                \draw[dashed] (-1,0) arc (180:0:1cm and 0.5cm);
+                \draw (0,1) arc (90:270:0.5cm and 1cm);
+                \draw[dashed] (0,1) arc (90:-90:0.5cm and 1cm);
+                \draw (0,0) circle (1cm);
+                \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+            \draw[->, thick] (0,0) -- (0,1) node[left, pos=0.2]{$\bar s_i$};
+
+            \filldraw[black!40, fill=black!40, fill opacity=0.2]
+                (-1.4, 1, 1.4) --
+                (-1.4, 1, -1.3) --
+                (1.4, 1, -1.4) --
+                (1.4, 1, 1.4) --
+                cycle;
+
+                \draw[->, thick] (0, 1, 0) -- (1, 1, 0) node[above]{$\bar e_{p_i}$};
+                \draw[->, thick] (0, 1, 0) -- (0, 1, -1) node[above]{$\bar e_{q_i}$};
+            \end{tikzpicture}
+        \end{figure}
+    }
+    \only<3>{%
+        \begin{block}{Квадратичный инвариант}
+            \begin{equation*}
+                L^{[n]} = \Braket{\Sn | \Sn}
+            \end{equation*}
+        \end{block}
+    }
 \end{frame}
 
 
 \begin{frame}
     \frametitle{Метод ньютона}
-
-    В симпликтическом методе возникает задача решить нелинейное
-    уравнение. Его можно решать обобщенным методом Ньютона.
-
-    В конечном итоге метод Ньютона сводится к решению системы уравнений
-    вида:
-
-    \begin{block}{Система из метода Ньютона}
-        \begin{equation*}
-            f_i + \sum_{k_i}^n \frac{\partial f_i}{\partial x_k}
-            \left(x_k^{[j+1]} - x_k^{[j]}\right)
+    Пусть дана система уравнений и начальное приближение $x^0$
+    \begin{equation*}\label{eq:newton-needed-form}
+        \begin{cases}
+            f_1(x_1, x_2,\dots, x_n) = 0\\
+            \dots\\
+            f_1(x_1, x_2,\dots, x_n) = 0
+        \end{cases} \qquad ,
+    \end{equation*}
+    \pause
+    тогда следующее приближение вычисляется как
+    \begin{block}{Следующее приближение в методе Ньютона}
+        \begin{equation*}\label{eq:newton-generalized-iteration}
+            f_i(x^j) + \sum_{k=1}^n \frac{\partial f_i}{\partial x_k}(x^j)
+            (x_k^{j+1}-x_k^{j}) = 0,  i=1\dots n \quad .
         \end{equation*}
     \end{block}
-    \pause
     Эту систему можно решить методом би-сопряженных градиентов.
 \end{frame}
 
+
 \begin{frame}
-    \begin{center}
-        Спасибо за внимание!
-    \end{center}
+    \frametitle{Тестовый стенд}
+    \begin{itemize}
+        \item ЦПУ: AMD A8-7100 Radeon R5, 4 ядра, 1800\,МГц
+        \item ОС: Arch Linux, x86\_64 Linux 4.5.4-1-ARCH
+        \item ЗУПВ:
+            \begin{itemize}
+                \item SODIMM DDR3 1600\,МГц, 4\,Гб, RMT3170ME68F9F1600
+                \item SODIMM DDR3 1600\,МГц, 8\,Гб, CT102464BF160B.M16
+            \end{itemize}
+        \item \emph{python} 2.7.11
+        \item \emph{scipy} 0.17.1
+        \item \emph{numpy} 1.11.0
+        \item \emph{matplotlib} 1.5.1
+    \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Сравнение ошибки энергии}
+    \begin{figure}[h]
+        \centernig
+        \includegraphics[width=\textwidth]{errorComparsionEnergy}
+        \caption{график зависимости ошибки энергии от времени}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Сравнение ошибки длин}
+    \begin{figure}[h]
+        \centernig
+        \includegraphics[width=\textwidth]{errorComparsionLength}
+        \caption{график зависимости ошибки квадрана суммы длин векторов спинов
+        от времени}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Сравнение скорости}
+    \begin{figure}[h]
+        \centernig
+        \includegraphics[width=\textwidth]{speedComparsion}
+        \caption{график зависимости скорости одной итерации от размера решетки}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    %\frametitle{Магнитный скирмион}
+	\begin{center}
+		\includemedia[
+			activate=onclick,
+			height=\textheight
+		]{\includegraphics{../img/skyrmion4}}{skyrmion.swf}
+	\end{center}
+\end{frame}
+
+\ITMOthankspage
 \end{document}
