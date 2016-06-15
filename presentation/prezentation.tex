@@ -24,7 +24,7 @@
 \deftranslation[to=russian]{Fact}{Факт}
 \deftranslation[to=russian]{Example}{Пример}
 \deftranslation[to=russian]{Examples}{Примеры}
-\deftranslation[to=russian]{Figure}{Рисунок}
+\deftranslation[to=russian]{Figure}{Рис.}
 \deftranslation[to=russian]{Table}{Таблица}
 
 \newcommand*{\heff}{\ensuremath{\mathcal{H}}}
@@ -48,11 +48,24 @@
 \ITMOtitlepage
 
 \begin{frame}
+    \frametitle{Поставленные задачи}
+    \begin{itemize}
+        \item Разработать симплектический алгоритм интегрирования уравнения
+    Ландау-Лифшица.
+        \item Привести необходимые формулы.
+        \item Экспериментально убедиться в работоспособности полученного
+            алгоритма.
+        \item Сравнить полученный алгоритм с несколькими классическими методами
+            численного интегрирования.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
     \frametitle{Магнитный скирмион}
     Скирмион -- это квазичастица, представляющая структуру, выстраивающеюся из
     спинов нескольких атомов кристаллической решетки.
     \begin{figure}
-        \centering
         \includegraphics[width=0.5\linewidth]{skyrmion4}
     \end{figure}
 \end{frame}
@@ -60,18 +73,17 @@
 \begin{frame}
     \frametitle{Уравнение Ландау-Лифшица}
     Состояние магнитной системы описывается уравнением Ландау-Лифшица-Гильберта
-
     \begin{block}{Уравнение Ландау-Лифшица-Гильберта}
         \begin{equation*}
-            \frac{dS_n}{dt} = -\gamma S_n \times \nabla_{S_n} \mathbf E -
-            \gamma\lambda S_n \times
-            \left(S_n\times \nabla_{S_n} \mathbf E \right)
+            \frac{\partial \mathbf{S}}{\partial t} = - |\gamma|\left[\mathbf{S}
+            \times\nabla_{\Sn}\mathbf E\right]-
+            |\gamma|\lambda S \times \left( \mathbf S \times
+            \nabla_{\Sn}\mathbf E \right),
         \end{equation*}
     \end{block}
 
     \begin{itemize}
-        \only<1>{\item $\mathbf E$ -- энергия системы}
-        \item $S_n$ -- вектор направления спина атома с индексом $n$
+        \item $\Sn$ -- вектор направления спина атома с индексом $n$%
     \end{itemize}
 
     \pause
@@ -135,7 +147,6 @@
     \begin{block}{}
         \begin{figure}[h]
             \renewcommand{\arraystretch}{1.2}
-            \centering
             \begin{tabular}{c|ccc}
                 $c_1$    & $a_{11}$ & $\ldots$ & $a_{1s}$ \\
                 $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
@@ -147,7 +158,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Симпелектический метод РК}
+    \frametitle{Симплектический метод РК}
 
     Пусть $M=\left( m_{ij} \right)^s_{i,j=1}$ -- матрица вещественных чисел размера
     $s\times s$, где
@@ -156,21 +167,14 @@
             m_{ij} = b_i a_{ij} + b_j a_{ji} - b_i b_j,\qquad i,j=1,\dots,s
         \end{equation*}
     \end{block}
-    \only<1>{%
-        тогда справедлива следующая теорема
-    }
-    \only<2>{%
-        тогда справедливы следующие теоремы
-    }
+     справедливы следующие теоремы
     \begin{theorem}
         Если $M = 0$, тогда метод Рунге-Кутта является симплектическим.
     \end{theorem}
-    \only<2>{%
-        \begin{theorem}\label{th:quadratic-integrals}
-            Симплектический метод Рунге-Кутта сохраняет все инварианты в квадратичной
-            форме Гамильтоновой системы.
-        \end{theorem}
-    }
+    \begin{theorem}\label{th:quadratic-integrals}
+        Симплектический метод Рунге-Кутта сохраняет все инварианты в квадратичной
+        форме Гамильтоновой системы.
+    \end{theorem}
 \end{frame}
 
 
@@ -178,7 +182,6 @@
     \frametitle{Метод Гаусса-Лежандра-Рунге-Кутта}
     \begin{table}[h]
         \renewcommand{\arraystretch}{1.8}
-        \centering
         \begin{tabular}{c|cc}
             $\frac12 - \frac{\sqrt3}6$ & $\frac14$                  & $\frac14 - \frac{\sqrt3}6$ \\
             $\frac12 + \frac{\sqrt3}6$ & $\frac14 + \frac{\sqrt3}6$ & $\frac14$ \\ \hline
@@ -188,74 +191,6 @@
     \end{table}
 \end{frame}
 
-
-\begin{frame}
-    \frametitle{Гамильтонова система}
-    \begin{block}{Система Гамильтона}
-        \begin{equation*}
-            \begin{cases}
-                \dot q_k = \frac{\partial H(p, q)}{\partial p_k}\\
-                \dot p_k = -\frac{\partial H(p, q)}{\partial q_k}
-            \end{cases}, \qquad k = 1\dots s.
-        \end{equation*}
-    \end{block}
-    \pause
-    При наивном численном интегрировании должна появится ошибка с длиной
-    вектора $\bar{s}$
-    \only<2>{%
-        \begin{figure}[h]
-            \centering
-            \begin{tikzpicture}
-                \draw (-1,0) arc (180:360:1cm and 0.5cm);
-                \draw[dashed] (-1,0) arc (180:0:1cm and 0.5cm);
-                \draw (0,1) arc (90:270:0.5cm and 1cm);
-                \draw[dashed] (0,1) arc (90:-90:0.5cm and 1cm);
-                \draw (0,0) circle (1cm);
-                \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
-            \draw[->, thick] (0,0) -- (0,1) node[left, pos=0.2]{$\bar s_i$};
-
-            \filldraw[black!40, fill=black!40, fill opacity=0.2]
-                (-1.4, 1, 1.4) --
-                (-1.4, 1, -1.3) --
-                (1.4, 1, -1.4) --
-                (1.4, 1, 1.4) --
-                cycle;
-
-                \draw[->, thick] (0, 1, 0) -- (1, 1, 0) node[above]{$\bar e_{p_i}$};
-                \draw[->, thick] (0, 1, 0) -- (0, 1, -1) node[above]{$\bar e_{q_i}$};
-            \end{tikzpicture}
-        \end{figure}
-    }
-    \only<3>{%
-        \begin{block}{Квадратичный инвариант}
-            \begin{equation*}
-                L^{[n]} = \Braket{\Sn | \Sn}
-            \end{equation*}
-        \end{block}
-    }
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Метод ньютона}
-    Пусть дана система уравнений и начальное приближение $x^0$
-    \begin{equation*}\label{eq:newton-needed-form}
-        \begin{cases}
-            f_1(x_1, x_2,\dots, x_n) = 0\\
-            \dots\\
-            f_1(x_1, x_2,\dots, x_n) = 0
-        \end{cases} \qquad ,
-    \end{equation*}
-    \pause
-    тогда следующее приближение вычисляется как
-    \begin{block}{Следующее приближение в методе Ньютона}
-        \begin{equation*}\label{eq:newton-generalized-iteration}
-            f_i(x^j) + \sum_{k=1}^n \frac{\partial f_i}{\partial x_k}(x^j)
-            (x_k^{j+1}-x_k^{j}) = 0,  i=1\dots n \quad .
-        \end{equation*}
-    \end{block}
-    Эту систему можно решить методом би-сопряженных градиентов.
-\end{frame}
 
 
 \begin{frame}
@@ -278,28 +213,25 @@
 \begin{frame}
     \frametitle{Сравнение ошибки энергии}
     \begin{figure}[h]
-        \centernig
         \includegraphics[width=\textwidth]{errorComparsionEnergy}
-        \caption{график зависимости ошибки энергии от времени}
+        \caption{График зависимости ошибки энергии от шага интегрирования}
     \end{figure}
 \end{frame}
 
 \begin{frame}
     \frametitle{Сравнение ошибки длин}
     \begin{figure}[h]
-        \centernig
         \includegraphics[width=\textwidth]{errorComparsionLength}
-        \caption{график зависимости ошибки квадрана суммы длин векторов спинов
-        от времени}
+        \caption{График зависимости ошибки квадрана суммы длин векторов спинов
+        от шага интегрирования}
     \end{figure}
 \end{frame}
 
 \begin{frame}
     \frametitle{Сравнение скорости}
     \begin{figure}[h]
-        \centernig
         \includegraphics[width=\textwidth]{speedComparsion}
-        \caption{график зависимости скорости одной итерации от размера решетки}
+        \caption{График зависимости скорости одной итерации от размера решетки}
     \end{figure}
 \end{frame}
 
@@ -314,4 +246,65 @@
 \end{frame}
 
 \ITMOthankspage
+
+
+\begin{frame}[noframenumbering]
+    \frametitle{Метод ньютона}
+    Пусть дана система уравнений и начальное приближение $x^0$
+    \begin{equation*}\label{eq:newton-needed-form}
+        \begin{cases}
+            f_1(x_1, x_2,\dots, x_n) = 0\\
+            \dots\\
+            f_1(x_1, x_2,\dots, x_n) = 0
+        \end{cases} \qquad ,
+    \end{equation*}
+    тогда следующее приближение вычисляется как
+    \begin{block}{Следующее приближение в методе Ньютона}
+        \begin{equation*}\label{eq:newton-generalized-iteration}
+            f_i(x^j) + \sum_{k=1}^n \frac{\partial f_i}{\partial x_k}(x^j)
+            (x_k^{j+1}-x_k^{j}) = 0,  i=1\dots n \quad .
+        \end{equation*}
+    \end{block}
+    Эту систему можно решить методом би-сопряженных градиентов.
+\end{frame}
+
+
+\begin{frame}[noframenumbering]
+    \frametitle{Гамильтонова система}
+    \begin{block}{Система Гамильтона}
+        \begin{equation*}
+            \begin{cases}
+                \dot q_k = \frac{\partial H(p, q)}{\partial p_k}\\
+                \dot p_k = -\frac{\partial H(p, q)}{\partial q_k}
+            \end{cases}, \qquad k = 1\dots s.
+        \end{equation*}
+    \end{block}
+    При наивном численном интегрировании должна появится ошибка с длиной
+    вектора $\bar{s}$
+    {%
+        \begin{figure}[h]
+            \begin{tikzpicture}
+                \draw (-1,0) arc (180:360:1cm and 0.5cm);
+                \draw[dashed] (-1,0) arc (180:0:1cm and 0.5cm);
+                \draw (0,1) arc (90:270:0.5cm and 1cm);
+                \draw[dashed] (0,1) arc (90:-90:0.5cm and 1cm);
+                \draw (0,0) circle (1cm);
+                \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+            \draw[->, thick] (0,0) -- (0,1) node[left, pos=0.2]{$\bar s_i$};
+
+            \filldraw[black!40, fill=black!40, fill opacity=0.2]
+                (-1.4, 1, 1.4) --
+                (-1.4, 1, -1.3) --
+                (1.4, 1, -1.4) --
+                (1.4, 1, 1.4) --
+                cycle;
+
+                \draw[->, thick] (0, 1, 0) -- (1, 1, 0) node[above]{$\bar e_{p_i}$};
+                \draw[->, thick] (0, 1, 0) -- (0, 1, -1) node[above]{$\bar e_{q_i}$};
+            \end{tikzpicture}
+        \end{figure}
+    }
+\end{frame}
+
+
 \end{document}
